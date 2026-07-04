@@ -69,6 +69,13 @@ class MenuVisibilitySupportTest {
         assertThat(visible).isTrue();
     }
 
+    @Test
+    void ownerCanAlwaysViewOwnPrivateDish() {
+        boolean visible = support.canViewDish("owner", "private", List.of(), "owner", false);
+
+        assertThat(visible).isTrue();
+    }
+
 
 
     private UserDefaultVisibilityCircle defaultCircle(String userId, String circleId) {

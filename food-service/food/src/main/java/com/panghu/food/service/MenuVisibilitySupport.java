@@ -125,9 +125,10 @@ public class MenuVisibilitySupport {
                                List<String> effectiveCircleIds,
                                String viewerUserId,
                                boolean legacyCircleMode) {
-        // if (viewerUserId != null && Objects.equals(viewerUserId, ownerUserId)) {
-        //     return true;
-        // }
+        // 菜谱作者本人始终可见，避免“仅自己可见”在创建后回读详情时被误拦截。
+        if (viewerUserId != null && Objects.equals(viewerUserId, ownerUserId) && !legacyCircleMode) {
+            return true;
+        }
         if (VisibilityUtils.VISIBILITY_PUBLIC.equals(effectiveVisibility)) {
             return viewerUserId != null && isUserInAnyCircle(viewerUserId);
         }
